@@ -1,17 +1,14 @@
-import gallery from "./galery-items.js"
+import gallery from './galery-items.js';
 
-
-const docList = document.querySelector(".js-gallery");
-const lightBox = document.querySelector(".js-lightbox")
-const esc = document.querySelector(".lightbox__button")
-let image = document.querySelector(".lightbox__image")
+const docList = document.querySelector('.js-gallery');
+const lightBox = document.querySelector('.js-lightbox');
+const esc = document.querySelector('.lightbox__button');
+let image = document.querySelector('.lightbox__image');
 const murkup = createGallery(gallery);
-docList.insertAdjacentHTML("beforeend", murkup)
-
-
+docList.insertAdjacentHTML('beforeend', murkup);
 
 function createGalleryMarkup(arr) {
-    const lisImage = `
+	const lisImage = `
     <li class="gallery__item">
   <a
     class="gallery__link"
@@ -25,27 +22,24 @@ function createGalleryMarkup(arr) {
     />
   </a>
 </li>
-    `
-    return lisImage
-};
-
+    `;
+	return lisImage;
+}
 
 function createGallery(arr) {
-    return arr
-    .map(el => createGalleryMarkup(el))
-    .join(' ')
-};
+	return arr.map((el) => createGalleryMarkup(el)).join(' ');
+}
 
-
-docList.addEventListener("click", e => {
-    e.preventDefault()
-    image.removeAttribute('src')
-    image.setAttribute('src', e.target.dataset.source);
-    lightBox.classList.toggle("is-open");
+docList.addEventListener('click', (e) => {
+	e.preventDefault();
+	if (e.target.nodeName !== 'IMG') {
+		return;
+	}
+	image.setAttribute('src', e.target.dataset.source);
+	lightBox.classList.toggle('is-open');
 });
 
-
-esc.addEventListener("click", e => {
-    lightBox.classList.toggle("is-open");
-    image.removeAttribute('src');
-})
+esc.addEventListener('click', (e) => {
+	lightBox.classList.toggle('is-open');
+	image.removeAttribute('src');
+});
